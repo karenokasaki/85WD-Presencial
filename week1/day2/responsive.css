@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,700&display=swap");
+
+.logo {
+  display: none;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+}
+.container {
+  margin: 10px;
+  border: 3px solid black;
+}
+
+nav {
+  border: 2px solid black;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+}
+
+.products > div {
+  width: 100px;
+  height: 100px;
+  background-color: brown;
+  margin: 10px;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  padding-inline-start: 0px;
+  background-color: grey;
+  margin: 0px;
+}
+
+ul > li {
+  margin: 3px;
+  font-size: 1.5rem;
+}
+
+.products > div:hover {
+  background-color: chartreuse;
+}
+
+.fixed {
+  width: 25px;
+  height: 25px;
+  background-color: coral;
+  position: fixed;
+  right: 20px;
+  bottom: 50vh;
+}
+
+.fixed:hover {
+  background-color: black;
+}
+
+@media (min-width: 440px) {
+  .products {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .products > div {
+    width: 180px;
+  }
+  footer > ul {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  nav {
+    font-size: 3rem;
+  }
+  ul > li {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+  footer {
+    display: none;
+  }
+  .logo {
+    display: block;
+  }
+  .fixed {
+    width: 25px;
+    height: 25px;
+    background-color: blue;
+    position: fixed;
+    left: 20px;
+    bottom: 80vh;
+  }
+  .products {
+    display: none;
+  }
+  * {
+    background-color: black;
+  }
+}

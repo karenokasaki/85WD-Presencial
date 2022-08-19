@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;900&family=Roboto+Mono:wght@300;400&display=swap");
+
+* {
+  font-family: "Roboto Mono", monospace;
+  font-size: 20px;
+}
+
+.border {
+  border: 5px solid black;
+  margin: 10px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.redbox {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  display: flex;
+}
+
+.flex {
+  display: flex;
+}
+
+.content {
+  flex-wrap: wrap;
+}

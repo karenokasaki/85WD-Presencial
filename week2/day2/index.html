@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Linkando o arquivo de css -->
+    <link rel="stylesheet" href="style/styles.css" />
+    <title>Day 2</title>
+  </head>
+  <body>
+    <form>
+      <label>Escreva seu nome</label>
+      <input type="text" id="nameInput" />
+
+      <label>nº1</label>
+      <input type="number" id="num1" required />
+
+      <label>nº2</label>
+      <input type="number" id="num2" required />
+
+      <button id="btnSoma">Somar</button>
+      <button>Multiplicação</button>
+
+      <button id="btnReset">Resetar</button>
+    </form>
+
+    <div>
+      Resultado:
+      <span id="resultado"></span>
+    </div>
+
+    <p>Bem vinde, <span id="namePlace"></span>!</p>
+
+    <button id="btnDiv">Trocar div</button>
+    <div id="div" class="hide div">
+      <p>Um paragrafo</p>
+      <p>Um Paragrafo</p>
+    </div>
+    <div id="div2" class="show div">
+      <p>Teste dois</p>
+      <p>Teste 3</p>
+    </div>
+
+    <!-- Linkando os arquivos JS no html -->
+    <script src="./js/Calculadora.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

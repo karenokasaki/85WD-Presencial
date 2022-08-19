@@ -1,0 +1,31 @@
+
+
+/* tipo de seletor {
+    propriedade: valor;
+
+} */
+/* * {
+    border: 1px solid red;
+} */
+
+.redbox > p {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    
+}
+
+.redbox, .bluebox {
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+
+.bluebox > p {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}

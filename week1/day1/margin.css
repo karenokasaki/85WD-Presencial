@@ -1,0 +1,74 @@
+.container {
+  border: 2px solid black;
+}
+
+.redbox {
+  width: 20vh;
+  height: 20vh;
+  border: 1px solid red;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.bluebox {
+  width: 20vh;
+  height: 20vh;
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.boxshadow {
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex {
+  display: flex;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.products > div,
+.cart > div {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+}
+
+.button {
+  padding: 20px;
+  margin: 20px;
+  background-color: blueviolet;
+}
+
+@media (max-width: 200px) {
+  .button {
+    background-color: red;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 400px) {
+  .button {
+    background-color: green;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 550px) {
+  .button {
+    background-color: blue;
+  }
+}
