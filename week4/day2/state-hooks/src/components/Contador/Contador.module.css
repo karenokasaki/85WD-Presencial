@@ -1,0 +1,15 @@
+.container {
+  border: 1px solid black;
+  border-radius: 15px;
+  background-color: grey;
+  margin: 50px;
+  padding: 20px;
+}
+
+.textWhite {
+  color: white;
+}
+
+#teste {
+  background-color: white;
+}
