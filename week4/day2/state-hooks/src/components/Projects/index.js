@@ -45,15 +45,14 @@ function Projects() {
     },
   ]);
 
+  const vitor = useState();
+
+  console.log(vitor);
+
   return (
     <>
-      {turma.map((element, index, arrayOriginal) => {
-        return (
-        <>
-            <Card project={element} key={element.dev}/>
-            <p>Vitor</p>
-        </>
-        );
+      {turma.map((element) => {
+        return <Card project={element} key={element.dev} />;
       })}
     </>
   );
