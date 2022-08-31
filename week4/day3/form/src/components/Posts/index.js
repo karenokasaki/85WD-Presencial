@@ -1,7 +1,7 @@
 import CardPost from "../CardPost";
 import { useState } from "react";
 
-function Posts({ posts }) {
+function Posts({ posts, setPosts }) {
   const [search, setSearch] = useState("");
 
   function handleChange(e) {
@@ -21,18 +21,23 @@ function Posts({ posts }) {
         onChange={handleChange}
       />
 
-      <div>
+      <div className="containerCards">
         {posts
-
           .filter((post) => {
             return (
               post.about.toLowerCase().includes(search.toLowerCase()) ||
               post.nickname.toLowerCase().includes(search.toLowerCase())
             );
           })
-
           .map((post) => {
-            return <CardPost post={post} key={post.message} />;
+            return (
+              <CardPost
+                key={post.message}
+                post={post}
+                posts={posts}
+                setPosts={setPosts}
+              />
+            );
           })}
       </div>
     </>

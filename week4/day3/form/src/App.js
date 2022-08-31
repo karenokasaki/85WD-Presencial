@@ -30,7 +30,7 @@ function App() {
 
   return (
     <div className="App">
-      <Posts posts={posts} />
+      <Posts posts={posts} setPosts={setPosts} />
       <Form posts={posts} setPosts={setPosts} />
     </div>
   );

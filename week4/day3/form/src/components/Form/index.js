@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Posts from "../Posts";
+import { Input, Label, Button } from "reactstrap";
 
 function Form({ posts, setPosts }) {
   const [form, setForm] = useState({
@@ -9,6 +10,8 @@ function Form({ posts, setPosts }) {
     nickname: "",
     message: "",
   });
+
+  let inputAbout = useRef();
 
   function handleChange(e) {
     if (e.target.name === "onLimit") {
@@ -37,15 +40,16 @@ function Form({ posts, setPosts }) {
       nickname: "",
       message: "",
     });
-  }
 
-  console.log(form);
+    inputAbout.current.focus();
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>About</label>
+        <Label>About</Label>
         <input
+          ref={inputAbout}
           name="about"
           type="text"
           value={form.about}
@@ -53,17 +57,17 @@ function Form({ posts, setPosts }) {
           required
         />
 
-        <label>Nível de Dificuldade</label>
-        <select name="lvlDif" onChange={handleChange} required>
+        <Label>Nível de Dificuldade</Label>
+        <Input type="select" name="lvlDif" onChange={handleChange} required>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
-        </select>
+        </Input>
 
-        <label>NickName</label>
-        <input
+        <Label>NickName</Label>
+        <Input
           name="nickname"
           type="text"
           value={form.nickname}
@@ -71,8 +75,8 @@ function Form({ posts, setPosts }) {
           required
         />
 
-        <label>Messagem</label>
-        <input
+        <Label>Messagem</Label>
+        <Input
           name="message"
           type="text"
           value={form.message}
@@ -80,15 +84,17 @@ function Form({ posts, setPosts }) {
           required
         />
 
-        <label>Você está no limite?</label>
-        <input
+        <Label>Você está no limite?</Label>
+        <Input
           type="checkbox"
           name="onLimit"
           value={form.onLimit}
           onChange={handleChange}
         />
 
-        <button type="submit">Salvar</button>
+        <Button color="success" type="submit">
+          Salvar
+        </Button>
       </form>
     </div>
   );
