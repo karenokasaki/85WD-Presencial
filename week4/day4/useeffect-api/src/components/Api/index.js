@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function Api() {
   const [recipes, setRecipes] = useState([]);
@@ -45,9 +46,9 @@ function Api() {
                 <Button color="danger" onClick={() => {}}>
                   Deletar
                 </Button>
-                {/* <Link to={`/recipe/${cE._id}`}> */}
-                <Button outline>Detalhes</Button>
-                {/*  </Link> */}
+                <Link to={`/recipe/${cE._id}`}>
+                  <Button outline>Detalhes</Button>
+                </Link>
               </div>
             </Card>
           );
