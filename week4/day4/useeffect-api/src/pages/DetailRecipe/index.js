@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { ListGroup, ListGroupItem } from "reactstrap";
 
 function DetailRecipe() {
   const { recipeID } = useParams();
@@ -32,22 +33,39 @@ function DetailRecipe() {
       {isLoading === false && (
         <>
           <h1>{recipe.name}</h1>
-          <img src={recipe.imageUrl} alt="food" />
-          <p>{recipe.preparation_time}</p>
+          <img src={recipe.imageUrl} alt="food" width={400} />
 
-          <h2>Ingredientes!</h2>
-          <ul>
+          <ListGroup horizontal>
+            <ListGroupItem
+              color={
+                recipe.preparation_time.includes("h") ? "danger" : "warning"
+              }
+            >
+              Tempo de Preparo: {recipe.preparation_time}
+            </ListGroupItem>
+            <ListGroupItem
+              color={
+                recipe.level.toLowerCase() === "facil" ? "success" : "warning"
+              }
+            >
+              Dificuldade: {recipe.level}
+            </ListGroupItem>
+            <ListGroupItem>Porções: {recipe.portions}</ListGroupItem>
+          </ListGroup>
+
+          <ListGroup>
+            <h2>Ingredientes!</h2>
             {recipe.ingredients.map((ingrediente) => {
-              return <li>{ingrediente}</li>;
+              return <ListGroupItem>{ingrediente}</ListGroupItem>;
             })}
-          </ul>
+          </ListGroup>
 
-          <h2>Método de Preparo</h2>
-          <ul>
+          <ListGroup numbered>
+            <h2 className="list-group-item">Método de Preparo</h2>
             {recipe.preparationMethod.map((metodo) => {
-              return <li>{metodo}</li>;
+              return <ListGroupItem>{metodo}</ListGroupItem>;
             })}
-          </ul>
+          </ListGroup>
         </>
       )}
     </>
