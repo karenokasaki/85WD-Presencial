@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import EditUserForm from "../../components/EditUserForm";
 import Notes from "../../components/Notes";
+import { Link } from "react-router-dom";
+import Questions from "../../components/Questions";
 
 function ProfilePage() {
   const { studentID } = useParams();
@@ -43,6 +45,8 @@ function ProfilePage() {
     <div>
       <h1>ProfilePage</h1>
 
+      <Link to="/">Voltar</Link>
+
       <h2>{student.name}</h2>
       <p>{student.sign}</p>
       <p>{student.age}</p>
@@ -62,12 +66,21 @@ function ProfilePage() {
       )}
 
       {!isLoading && (
-        <Notes
-          student={student}
-          studentID={studentID}
-          reload={reload}
-          setReload={setReload}
-        />
+        <>
+          <Notes
+            student={student}
+            studentID={studentID}
+            reload={reload}
+            setReload={setReload}
+          />
+
+          <Questions
+            student={student}
+            studentID={studentID}
+            reload={reload}
+            setReload={setReload}
+          />
+        </>
       )}
     </div>
   );

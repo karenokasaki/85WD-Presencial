@@ -34,6 +34,7 @@ function Notes({ student, studentID, reload, setReload }) {
   return (
     <div>
       {student.notes.map((note, index) => {
+
         return (
           <Note
             note={note}

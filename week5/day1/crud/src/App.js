@@ -5,6 +5,9 @@ import ProfilePage from "./pages/ProfilePage";
 import CreateUserPage from "./pages/CreateUserPage";
 
 function App() {
+
+  //INFORMAÇÕES QUE PODEM SER COMPARTILHADAS POR VÁRIAS PAGINAS
+
   return (
     <div className="App">
       <Routes>

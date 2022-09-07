@@ -30,7 +30,11 @@ function HomePage() {
     <div>
       <h1>HomePage</h1>
       <Link to="/create-user">Crie seu perfil no app</Link>
-      <input value={search} onChange={handleSearch} />
+      <input
+        value={search}
+        onChange={handleSearch}
+        placeholder="Procure um amiguinho"
+      />
       <div>
         {students
           .filter((student) =>

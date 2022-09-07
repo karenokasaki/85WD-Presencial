@@ -8,7 +8,8 @@ function CreateUserPage() {
     age: "",
     type: "",
     sign: "",
-    notes: []
+    notes: [],
+    questions: []
   });
 
   const navigate = useNavigate();
