@@ -1,14 +1,18 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import EditUserForm from "../../components/EditUserForm";
+import Notes from "../../components/Notes";
 
 function ProfilePage() {
   const { studentID } = useParams();
-  console.log(studentID);
 
   const [student, setStudent] = useState({});
+  console.log(student);
 
   const [showForm, setShowForm] = useState(false);
+  const [reload, setReload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [form, setForm] = useState({
     name: "",
@@ -17,10 +21,9 @@ function ProfilePage() {
     sign: "",
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     async function fetchUser() {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `https://ironrest.herokuapp.com/wd-85-ft/${studentID}`
@@ -28,47 +31,14 @@ function ProfilePage() {
 
         setStudent(response.data);
         setForm(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     }
     fetchUser();
-  }, [studentID, showForm]);
+  }, [studentID, reload]);
 
-  async function handleDelete() {
-    try {
-      await axios.delete(
-        `https://ironrest.herokuapp.com/wd-85-ft/${studentID}`
-      );
-
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      delete form._id;
-
-      await axios.put(
-        `https://ironrest.herokuapp.com/wd-85-ft/${studentID}`,
-        form
-      );
-
-      setShowForm(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  console.log(form);
   return (
     <div>
       <h1>ProfilePage</h1>
@@ -78,29 +48,26 @@ function ProfilePage() {
       <p>{student.age}</p>
       <p>{student.type}</p>
 
-      <button onClick={handleDelete}>Delete esse perfil</button>
       <button onClick={() => setShowForm(!showForm)}>Edite esse perfil</button>
 
       {showForm === true && (
-        <form onSubmit={handleSubmit}>
-          <label>Nome</label>
-          <input name="name" value={form.name} onChange={handleChange} />
+        <EditUserForm
+          form={form}
+          studentID={studentID}
+          setShowForm={setShowForm}
+          setForm={setForm}
+          reload={reload}
+          setReload={setReload}
+        />
+      )}
 
-          <label>Idade</label>
-          <input name="age" value={form.age} onChange={handleChange} />
-
-          <label>Signo</label>
-          <input name="sign" value={form.sign} onChange={handleChange} />
-
-          <label>Tipo</label>
-          <select name="type" onChange={handleChange}>
-            <option value="professor">Professor</option>
-            <option value="aluno">Aluno</option>
-            <option value="ta">Ta</option>
-          </select>
-
-          <button type="submit">Salvar</button>
-        </form>
+      {!isLoading && (
+        <Notes
+          student={student}
+          studentID={studentID}
+          reload={reload}
+          setReload={setReload}
+        />
       )}
     </div>
   );

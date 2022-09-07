@@ -1,38 +1,52 @@
 import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateUserPage() {
-  const [form, setForm] = useState({
-    name: "",
-    age: "",
-    type: "",
-    sign: "",
-    notes: []
-  });
-
+function EditUserForm({
+  form,
+  studentID,
+  setShowForm,
+  setForm,
+  reload,
+  setReload,
+}) {
   const navigate = useNavigate();
-
-  function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      await axios.post("https://ironrest.herokuapp.com/wd-85-ft", form);
+      delete form._id;
+
+      await axios.put(
+        `https://ironrest.herokuapp.com/wd-85-ft/${studentID}`,
+        form
+      );
+
+      setShowForm(false);
+      setReload(!reload);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  async function handleDelete() {
+    try {
+      await axios.delete(
+        `https://ironrest.herokuapp.com/wd-85-ft/${studentID}`
+      );
+
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   }
 
-  console.log(form);
   return (
-    <div>
-      <h1>Pagina de criação</h1>
-
+    <>
       <form onSubmit={handleSubmit}>
         <label>Nome</label>
         <input name="name" value={form.name} onChange={handleChange} />
@@ -44,8 +58,7 @@ function CreateUserPage() {
         <input name="sign" value={form.sign} onChange={handleChange} />
 
         <label>Tipo</label>
-        <select name="type" onChange={handleChange} required>
-          <option></option>
+        <select name="type" onChange={handleChange} defaultValue={form.type}>
           <option value="professor">Professor</option>
           <option value="aluno">Aluno</option>
           <option value="ta">Ta</option>
@@ -53,8 +66,9 @@ function CreateUserPage() {
 
         <button type="submit">Salvar</button>
       </form>
-    </div>
+      <button onClick={handleDelete}>Delete esse perfil</button>
+    </>
   );
 }
 
-export default CreateUserPage;
+export default EditUserForm;

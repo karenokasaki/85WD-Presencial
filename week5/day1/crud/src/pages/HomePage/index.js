@@ -8,17 +8,6 @@ function HomePage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    /*     async function fetchStudents() {
-      const response = await fetch("https://ironrest.herokuapp.com/wd-85-ft")
-        .then((value) => value.json())
-        .then((jsonValue) => jsonValue)
-        .catch((error) => console.log(error))
-        .finally(() => console.log("finalmente"));
-
-      setStudents(response);
-    }
-    fetchStudents(); */
-
     async function fetchComAxios() {
       try {
         const response = await axios.get(
@@ -27,8 +16,6 @@ function HomePage() {
         setStudents(response.data);
       } catch (error) {
         console.log(error);
-      } finally {
-        console.log("vai rodar todas as vezes, independente de qlqr coisa");
       }
     }
 
@@ -38,7 +25,7 @@ function HomePage() {
   function handleSearch(e) {
     setSearch(e.target.value);
   }
-  console.log(search);
+
   return (
     <div>
       <h1>HomePage</h1>
