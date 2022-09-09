@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Card, Form, Button } from "react-bootstrap";
 
 function Note({ note, index, student, studentID, reload, setReload }) {
   const [showForm, setShowForm] = useState(false);
@@ -50,27 +51,41 @@ function Note({ note, index, student, studentID, reload, setReload }) {
   }
 
   return (
-    <div>
-      {!showForm && (
-        <>
-          <p>{note}</p>
-          <button onClick={handleDelete}>Deletar nota</button>
-          <button onClick={() => setShowForm(!showForm)}>Editar</button>
-        </>
-      )}
+    <Card className="m-2" style={{ width: "18rem" }}>
+      <Card.Body>
+        {!showForm && <Card.Text>{note}</Card.Text>}
 
-      {showForm && (
-        <form onSubmit={handleSubmit}>
-          <textarea
-            value={noteEdit}
-            rows={4}
-            cols={35}
-            onChange={handleChange}
-          />
-          <button type="submit">salvar</button>
-        </form>
-      )}
-    </div>
+        {showForm && (
+          <Form>
+            <Form.Control
+              as="textarea"
+              value={noteEdit}
+              onChange={handleChange}
+            />
+          </Form>
+        )}
+      </Card.Body>
+      <Card.Footer className="d-flex justify-content-between">
+        {!showForm && (
+          <>
+            <Button size="sm" onClick={() => setShowForm(!showForm)}>
+              Editar
+            </Button>
+          </>
+        )}
+
+        {showForm && (
+          <>
+            <Button size="sm" variant="danger" onClick={handleDelete}>
+              Deletar nota
+            </Button>
+            <Button size="sm" variant="success" onClick={handleSubmit}>
+              Salvar
+            </Button>
+          </>
+        )}
+      </Card.Footer>
+    </Card>
   );
 }
 

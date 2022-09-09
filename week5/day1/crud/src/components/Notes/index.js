@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import Note from "../Note";
 
+import { Form, Button, InputGroup, FloatingLabel } from "react-bootstrap";
+
 function Notes({ student, studentID, reload, setReload }) {
   const [noteInput, setNoteInput] = useState("");
 
@@ -33,31 +35,43 @@ function Notes({ student, studentID, reload, setReload }) {
 
   return (
     <div>
-      {student.notes.map((note, index) => {
+      <Form onSubmit={handleSubmit}>
+        <InputGroup>
+          <FloatingLabel
+            controlId="floatingTextarea1"
+            label="Escreva uma nota aqui..."
+          >
+            <Form.Control
+              as="textarea"
+              value={noteInput}
+              onChange={handleChange}
+              placeholder="Escreva uma nota aqui..."
+              style={{ height: "100px" }}
+            />
+          </FloatingLabel>
+          <InputGroup.Text>
+            <Button type="submit" variant="success">
+              Salvar nota
+            </Button>
+          </InputGroup.Text>
+        </InputGroup>
+      </Form>
 
-        return (
-          <Note
-            note={note}
-            index={index}
-            key={note}
-            student={student}
-            studentID={studentID}
-            reload={reload}
-            setReload={setReload}
-          />
-        );
-      })}
-
-      <form onSubmit={handleSubmit}>
-        <label>Crie sua nota!!</label>
-        <textarea
-          value={noteInput}
-          onChange={handleChange}
-          rows={4}
-          cols={35}
-        />
-        <button type="submit">Salvar nota</button>
-      </form>
+      <div className="d-flex flex-row flex-wrap justify-content-center mt-3 mb-3">
+        {student.notes.map((note, index) => {
+          return (
+            <Note
+              note={note}
+              index={index}
+              key={note}
+              student={student}
+              studentID={studentID}
+              reload={reload}
+              setReload={setReload}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Form, Button } from "react-bootstrap";
+
 function CreateUserPage() {
   const [form, setForm] = useState({
     name: "",
@@ -9,7 +11,7 @@ function CreateUserPage() {
     type: "",
     sign: "",
     notes: [],
-    questions: []
+    questions: [],
   });
 
   const navigate = useNavigate();
@@ -31,29 +33,61 @@ function CreateUserPage() {
 
   console.log(form);
   return (
-    <div>
-      <h1>Pagina de criação</h1>
+    <div className="d-flex flex-column">
+      <h4 className="text-center">Crie seu perfil no nosso site</h4>
 
-      <form onSubmit={handleSubmit}>
-        <label>Nome</label>
-        <input name="name" value={form.name} onChange={handleChange} />
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="text-start text-muted fs-4 ">Nome</Form.Label>
+          <Form.Control
+            size="lg"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-        <label>Idade</label>
-        <input name="age" value={form.age} onChange={handleChange} />
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="fs-4 text-muted">Idade</Form.Label>
+          <Form.Control
+            size="lg"
+            name="age"
+            value={form.age}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-        <label>Signo</label>
-        <input name="sign" value={form.sign} onChange={handleChange} />
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="fs-4 text-muted">Signo</Form.Label>
+          <Form.Control
+            size="lg"
+            name="sign"
+            value={form.sign}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-        <label>Tipo</label>
-        <select name="type" onChange={handleChange} required>
-          <option></option>
-          <option value="professor">Professor</option>
-          <option value="aluno">Aluno</option>
-          <option value="ta">Ta</option>
-        </select>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label className="fs-4 text-muted">Tipo</Form.Label>
+          <Form.Select name="type" onChange={handleChange} required>
+            <option></option>
+            <option value="professor">Professor</option>
+            <option value="aluno">Aluno</option>
+            <option value="ta">Ta</option>
+          </Form.Select>
+        </Form.Group>
 
-        <button type="submit">Salvar</button>
-      </form>
+        <div className="d-flex justify-content-center">
+          <Button
+            variant="success"
+            size="md"
+            type="submit"
+            style={{ width: "100px" }}
+          >
+            Salvar
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 }

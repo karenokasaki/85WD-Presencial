@@ -6,6 +6,15 @@ import Notes from "../../components/Notes";
 import { Link } from "react-router-dom";
 import Questions from "../../components/Questions";
 
+import {
+  Button,
+  Modal,
+  Form,
+  Accordion,
+  FloatingLabel,
+  Card,
+} from "react-bootstrap";
+
 function ProfilePage() {
   const { studentID } = useParams();
 
@@ -43,16 +52,18 @@ function ProfilePage() {
 
   return (
     <div>
-      <h1>ProfilePage</h1>
-
-      <Link to="/">Voltar</Link>
-
-      <h2>{student.name}</h2>
-      <p>{student.sign}</p>
-      <p>{student.age}</p>
-      <p>{student.type}</p>
-
-      <button onClick={() => setShowForm(!showForm)}>Edite esse perfil</button>
+      <div className="card d-flex flex-row shadow-md justify-content-between align-items-center">
+        <span className="m-2 fs-2 fw-semibold">{student.name}</span>
+        <span>Signo: {student.sign}</span>
+        <span>{student.age} anos</span>
+        <span>{student.type}</span>
+        <Button
+          onClick={() => setShowForm(!showForm)}
+          className="btn btn-light btn-outline-dark btn-sm me-2"
+        >
+          Editar Perfil
+        </Button>
+      </div>
 
       {showForm === true && (
         <EditUserForm
@@ -62,25 +73,37 @@ function ProfilePage() {
           setForm={setForm}
           reload={reload}
           setReload={setReload}
+          showForm={showForm}
         />
       )}
 
       {!isLoading && (
-        <>
-          <Notes
-            student={student}
-            studentID={studentID}
-            reload={reload}
-            setReload={setReload}
-          />
-
-          <Questions
-            student={student}
-            studentID={studentID}
-            reload={reload}
-            setReload={setReload}
-          />
-        </>
+        <div className="mt-3">
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Minhas Anotações</Accordion.Header>
+              <Accordion.Body>
+                <Notes
+                  student={student}
+                  studentID={studentID}
+                  reload={reload}
+                  setReload={setReload}
+                />
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="1">
+              <Accordion.Header>Minhas Perguntas</Accordion.Header>
+              <Accordion.Body>
+                <Questions
+                  student={student}
+                  studentID={studentID}
+                  reload={reload}
+                  setReload={setReload}
+                />
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </div>
       )}
     </div>
   );

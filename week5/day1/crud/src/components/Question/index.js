@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { Card, Form, Button } from "react-bootstrap";
+
 function Question({ question, index, student, studentID, reload, setReload }) {
   const [inputAnswer, setInputAnswer] = useState("");
 
@@ -53,23 +55,43 @@ function Question({ question, index, student, studentID, reload, setReload }) {
   }
 
   return (
-    <div>
-      <p>Pergunta: {question.question}</p>
 
-      {question.isAnswered && <p>Resposta: {question.answer}</p>}
-      {!question.isAnswered && (
-        <form onSubmit={handleSubmit}>
-          <input
-            placeholder="responde o coleguinha"
-            value={inputAnswer}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit">ok</button>
-        </form>
-      )}
-      <button onClick={handleDelete}>Deletar Pergunta</button>
-    </div>
+    <Card className="m-2" style={{ width: "18rem" }}>
+      <Card.Body style={{ overFlow: "scroll", maxHeight: "300px" }}>
+        <Card.Text>{question.question}</Card.Text>
+
+        {question.isAnswered && (
+          <Card.Subtitle className="text-muted mt-1">
+            {question.answer}
+          </Card.Subtitle>
+        )}
+
+        {!question.isAnswered && (
+          <Form>
+            <Form.Control
+              placeholder="Responda a pergunta"
+              value={inputAnswer}
+              onChange={handleChange}
+              required
+            />
+          </Form>
+        )}
+      </Card.Body>
+
+      <Card.Footer>
+        {question.isAnswered && (
+          <Button size="sm" variant="danger" onClick={handleDelete}>
+            Deletar Pergunta
+          </Button>
+        )}
+
+        {!question.isAnswered && (
+          <Button onClick={handleSubmit} size="sm" variant="success">
+            Salvar Resposta
+          </Button>
+        )}
+      </Card.Footer>
+    </Card>
   );
 }
 

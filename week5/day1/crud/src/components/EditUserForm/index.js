@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button, Form } from "react-bootstrap";
 
 function EditUserForm({
   form,
@@ -8,6 +9,7 @@ function EditUserForm({
   setForm,
   reload,
   setReload,
+  showForm,
 }) {
   const navigate = useNavigate();
 
@@ -46,28 +48,53 @@ function EditUserForm({
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label>Nome</label>
-        <input name="name" value={form.name} onChange={handleChange} />
+    <Modal show={showForm} onHide={() => setShowForm(false)}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edite seu Perfil</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Label>Nome</Form.Label>
+          <Form.Control name="name" value={form.name} onChange={handleChange} />
 
-        <label>Idade</label>
-        <input name="age" value={form.age} onChange={handleChange} />
+          <Form.Label>Idade</Form.Label>
+          <Form.Control name="age" value={form.age} onChange={handleChange} />
 
-        <label>Signo</label>
-        <input name="sign" value={form.sign} onChange={handleChange} />
+          <Form.Label>Signo</Form.Label>
+          <Form.Control name="sign" value={form.sign} onChange={handleChange} />
 
-        <label>Tipo</label>
-        <select name="type" onChange={handleChange} defaultValue={form.type}>
-          <option value="professor">Professor</option>
-          <option value="aluno">Aluno</option>
-          <option value="ta">Ta</option>
-        </select>
-
-        <button type="submit">Salvar</button>
-      </form>
-      <button onClick={handleDelete}>Delete esse perfil</button>
-    </>
+          <Form.Label>Tipo</Form.Label>
+          <Form.Select
+            name="type"
+            onChange={handleChange}
+            defaultValue={form.type}
+          >
+            <option value="professor">Professor</option>
+            <option value="aluno">Aluno</option>
+            <option value="ta">Ta</option>
+          </Form.Select>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-between">
+        <Button
+          variant="danger"
+          className="text-light fw-semibold"
+          onClick={handleDelete}
+          size="sm"
+        >
+          Delete esse perfil
+        </Button>
+        <Button
+          variant="success"
+          onClick={handleSubmit}
+          className="text-light fw-semibold"
+          size="sm"
+        >
+          {" "}
+          Salvar{" "}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 
