@@ -1,8 +1,12 @@
 // importando o express para o arquivo
 const express = require("express");
 
+//importando cors
+const cors = require("cors")
+
 //instanciando o express na variável APP
 const app = express();
+app.use(cors({origin: "http://localhost:3000"}))
 
 //configurando o nosso servidor para receber e enviar arquivos em JSON
 app.use(express.json());
@@ -101,6 +105,24 @@ app.delete("/students/delete/:name", (req, res) => {
   students = newArray;
 
   return res.status(200).json(students);
+});
+
+let allPokemon = require("./data");
+
+app.get("/search", (req, res, next) => {
+  let foundPokemon = [];
+
+  if (req.query.name) {
+    console.log("Sim, estão procurando por NOME");
+
+    allPokemon.forEach((pokemon) => {
+      if (pokemon.name === req.query.name) {
+        foundPokemon.push(pokemon);
+      }
+    });
+  }
+
+  return res.status(200).json(foundPokemon);
 });
 
 app.listen(4000, () => {
