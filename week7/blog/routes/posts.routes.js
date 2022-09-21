@@ -3,6 +3,7 @@ const router = express.Router();
 
 const UserModel = require("../models/User.model");
 const PostModel = require("../models/Post.model");
+const CommentModel = require("../models/Comment.model");
 
 router.post("/create/:idAuthor", async (req, res) => {
   try {
@@ -40,6 +41,27 @@ router.get("/post/:idPost", async (req, res) => {
       });
 
     return res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.delete("/delete/:idPost", async (req, res) => {
+  try {
+    const { idPost } = req.params;
+
+    const deletedPost = await PostModel.findByIdAndDelete(idPost);
+
+    await CommentModel.deleteMany({ post: idPost });
+
+    await UserModel.findByIdAndUpdate(deletedPost.author, {
+      $pull: { posts: idPost },
+    });
+
+    return res
+      .status(200)
+      .json("Post deleteado. Usuário atualizado. Comentários deletados");
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);

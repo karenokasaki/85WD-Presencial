@@ -13,7 +13,7 @@ router.post("/create/:idPost/:idAuthor", async (req, res) => {
       ...req.body,
       author: idAuthor,
       post: idPost,
-    })
+    });
 
     await PostModel.findByIdAndUpdate(idPost, {
       $push: {
@@ -21,9 +21,51 @@ router.post("/create/:idPost/:idAuthor", async (req, res) => {
       },
     });
 
-    
-
     return res.status(201).json(newComment);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.put("/edit/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    const editedComment = await CommentModel.findByIdAndUpdate(
+      idComment,
+      {
+        ...req.body,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(editedComment);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.delete("/delete/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    //apaguei o comentário do CommentModel
+    const deletedComment = await CommentModel.findByIdAndDelete(idComment);
+
+    //apagar o ID do comentário da ARRAY comments, no PostModel
+    await PostModel.findByIdAndUpdate(
+      deletedComment.post,
+      {
+        $pull: {
+          comments: idComment,
+        },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json("comentário deletado :D");
   } catch (error) {
     console.log(error);
     return res.status(400).json(error);
