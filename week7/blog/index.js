@@ -10,6 +10,11 @@ app.use(express.json());
 app.use(cors({ origin: process.env.REACT_APP_URI }));
 
 //ROTAS
+const UsersRoute = require("./routes/users.routes");
+app.use("/users", UsersRoute);
+
+const PostsRoute = require("./routes/posts.routes");
+app.use("/posts", PostsRoute);
 
 app.listen(Number(process.env.PORT), () => {
   console.log("Server up and running on port", process.env.PORT);
