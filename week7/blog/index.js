@@ -16,6 +16,9 @@ app.use("/users", UsersRoute);
 const PostsRoute = require("./routes/posts.routes");
 app.use("/posts", PostsRoute);
 
+const CommentsRoute = require("./routes/comments.routes");
+app.use("/comments", CommentsRoute);
+
 app.listen(Number(process.env.PORT), () => {
   console.log("Server up and running on port", process.env.PORT);
 });
