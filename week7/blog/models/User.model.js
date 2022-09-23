@@ -11,9 +11,11 @@ const UserSchema = new Schema(
       match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
     },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    followers: [{ type: Schema.Types.ObjectId, ref: "User" }], // ME SEGUEM
+    following: [{ type: Schema.Types.ObjectId, ref: "User" }], // EU SIGO
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

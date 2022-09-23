@@ -51,14 +51,17 @@ router.delete("/delete/:idPost", async (req, res) => {
   try {
     const { idPost } = req.params;
 
+    //deletar o post
     const deletedPost = await PostModel.findByIdAndDelete(idPost);
 
-    await CommentModel.deleteMany({ post: idPost });
-
+    // deletando a REFERENCIAS do id DO POST do meu usuário (se quem criou o post)
     await UserModel.findByIdAndUpdate(deletedPost.author, {
       $pull: { posts: idPost },
     });
 
+    // deleto todos os comentários desse post.
+    await CommentModel.deleteMany({ post: idPost });
+    
     return res
       .status(200)
       .json("Post deleteado. Usuário atualizado. Comentários deletados");

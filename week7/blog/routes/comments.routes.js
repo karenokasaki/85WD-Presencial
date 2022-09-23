@@ -72,4 +72,42 @@ router.delete("/delete/:idComment", async (req, res) => {
   }
 });
 
+router.put("/like/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    const comment = await CommentModel.findByIdAndUpdate(
+      idComment,
+      {
+        $inc: { likes: 1 },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(comment);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.put("/dislike/:idComment", async (req, res) => {
+  try {
+    const { idComment } = req.params;
+
+    const comment = await CommentModel.findByIdAndUpdate(
+      idComment,
+      {
+        $inc: { likes: -1 },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(comment);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 module.exports = router;
