@@ -40,6 +40,25 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+router.put("/edit/:idUser", async (req, res) => {
+  try {
+    const { idUser } = req.params;
+
+    const editedUser = await UserModel.findByIdAndUpdate(
+      idUser,
+      {
+        ...req.body,
+      },
+      { new: true, runValidators: true }
+    );
+
+    return res.status(200).json;
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 router.delete("/delete/:idUser", async (req, res) => {
   try {
     const { idUser } = req.params;
@@ -64,7 +83,7 @@ router.delete("/delete/:idUser", async (req, res) => {
     //deletando todos os posts que o usuários já fez
     const deletedPosts = await PostModel.deleteMany({ author: idUser });
 
-/*     //deletar o usuário da array de following
+    /*     //deletar o usuário da array de following
     await UserModel.updateMany(
       { following: idUser },
       {

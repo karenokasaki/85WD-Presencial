@@ -47,6 +47,25 @@ router.get("/post/:idPost", async (req, res) => {
   }
 });
 
+router.put("/edit/:idPost", async (req, res) => {
+  try {
+    const { idPost } = req.params;
+
+    const editedPost = await PostModel.findByIdAndUpdate(
+      idPost,
+      {
+        ...req.body,
+      },
+      { new: true, runValidators: true }
+    );
+
+    return res.status(200).json(editedPost)
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+});
+
 router.delete("/delete/:idPost", async (req, res) => {
   try {
     const { idPost } = req.params;
@@ -61,7 +80,7 @@ router.delete("/delete/:idPost", async (req, res) => {
 
     // deleto todos os comentários desse post.
     await CommentModel.deleteMany({ post: idPost });
-    
+
     return res
       .status(200)
       .json("Post deleteado. Usuário atualizado. Comentários deletados");
