@@ -13,6 +13,8 @@ const UserSchema = new Schema(
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }], // ME SEGUEM
     following: [{ type: Schema.Types.ObjectId, ref: "User" }], // EU SIGO
+    passwordHash: { type: String, required: true },
+    role: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
   },
   {
     timestamps: true,

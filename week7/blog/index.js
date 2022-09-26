@@ -9,6 +9,12 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: process.env.REACT_APP_URI }));
 
+/* teste de middleware
+ const middleware = require("./middlewares/teste");
+app.use(middleware);
+ */
+
+
 //ROTAS
 const UsersRoute = require("./routes/users.routes");
 app.use("/users", UsersRoute);
